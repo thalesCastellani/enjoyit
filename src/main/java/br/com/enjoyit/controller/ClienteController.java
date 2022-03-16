@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,7 +15,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import br.com.enjoyit.dao.ClienteDao;
 import br.com.enjoyit.model.Cliente;
+import br.com.enjoyit.util.JPAUtil;
 
 @Path("/cliente")
 public class ClienteController {
@@ -38,10 +39,11 @@ public class ClienteController {
 		String date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a").format(timestamp.getTime());
 		cliente.setDataUltimaVisita(date);
 		
-		javax.persistence.EntityManagerFactory factory = Persistence.createEntityManagerFactory("enjoyit");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = JPAUtil.getEntityManager();
+		ClienteDao clienteDao = new ClienteDao(em);
+		
 		em.getTransaction().begin();
-		em.persist(cliente);
+		clienteDao.cadastra(cliente);
 		em.getTransaction().commit();
 		em.close();
 		
