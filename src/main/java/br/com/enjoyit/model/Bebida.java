@@ -20,7 +20,7 @@ public class Bebida {
 	@Id
 	@Column(name = "id_bebida")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bebida")
-	private Integer id;
+	private Long id;
 
 	@Column(name = "nm_bebida")
 	private String nome;
@@ -31,11 +31,11 @@ public class Bebida {
 	@ManyToMany(mappedBy = "bebidasFavoritas")
 	private List<Cliente> clientes;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

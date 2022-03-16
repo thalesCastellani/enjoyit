@@ -1,6 +1,7 @@
 package br.com.enjoyit.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +25,7 @@ public class Cliente {
 	@Id
 	@Column(name = "id_cliente")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente")
-	private Integer id;
+	private Long id;
 
 	@Column(name = "nr_telefone", nullable = false, unique = true)
 	private String telefone;
@@ -33,7 +34,7 @@ public class Cliente {
 	private String nome;
 
 	@Column(name = "dt_ultima_visita")
-	private String dataUltimaVisita;
+	private LocalDateTime dataUltimaVisita = LocalDateTime.now();
 
 	@Column(name = "fq_visitas")
 	private Integer frequencia;
@@ -46,14 +47,11 @@ public class Cliente {
 	@JoinTable(joinColumns = @JoinColumn(name = "id_cliente"), inverseJoinColumns = @JoinColumn(name = "id_bebida"), name = "bebida_favorita_cliente")
 	private List<Bebida> bebidasFavoritas;
 
-	public Cliente() {
-	}
-
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -73,11 +71,11 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public String getDataUltimaVisita() {
+	public LocalDateTime getDataUltimaVisita() {
 		return dataUltimaVisita;
 	}
 
-	public void setDataUltimaVisita(String dataUltimaVisita) {
+	public void setDataUltimaVisita(LocalDateTime dataUltimaVisita) {
 		this.dataUltimaVisita = dataUltimaVisita;
 	}
 

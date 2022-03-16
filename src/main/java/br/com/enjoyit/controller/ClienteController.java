@@ -1,8 +1,5 @@
 package br.com.enjoyit.controller;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-
 import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,9 +19,6 @@ import br.com.enjoyit.util.JPAUtil;
 @Path("/cliente")
 public class ClienteController {
 
-	public ClienteController() {
-	}
-
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String buscar() {
@@ -35,9 +29,9 @@ public class ClienteController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Cliente cliente, @Context UriInfo uriInfo) {
 		
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		String date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a").format(timestamp.getTime());
-		cliente.setDataUltimaVisita(date);
+//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//		String date = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a").format(timestamp.getTime());
+//		cliente.setDataUltimaVisita(date);
 		
 		EntityManager em = JPAUtil.getEntityManager();
 		ClienteDao clienteDao = new ClienteDao(em);
@@ -48,7 +42,7 @@ public class ClienteController {
 		em.close();
 		
 		UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
-		uriBuilder.path(Integer.toString(cliente.getId()));
+		uriBuilder.path(Long.toString(cliente.getId()));
 		return Response.created(uriBuilder.build()).build();
 	}
 
