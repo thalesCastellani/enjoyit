@@ -13,4 +13,10 @@ e elas automaticamente serão atribuídas a ele.
 
 Retorno esperado:
 
-![image](https://user-images.githubusercontent.com/62717114/158902994-f80f9101-8c92-4c39-9f57-895f9fe388b8.png)
+![image](https://user-images.githubusercontent.com/62717114/158907548-b4b9c263-5336-4b82-9416-846c09c9b1be.png)
+
+Também exite um endpoint que busca todos os clientes, basta chamar a url: http://localhost:8080/enjoyit/rest/cliente
+
+Retorno esperado:
+
+![image](https://user-images.githubusercontent.com/62717114/158907634-2d5b29bf-f056-49ea-b2bd-eae1f95d57cc.png)
