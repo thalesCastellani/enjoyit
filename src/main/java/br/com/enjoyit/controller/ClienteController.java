@@ -3,6 +3,7 @@ package br.com.enjoyit.controller;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
@@ -27,6 +28,21 @@ import br.com.enjoyit.util.JPAUtil;
 
 @Path("/cliente")
 public class ClienteController {
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Cliente> buscaTodosOsClientes() {
+		EntityManager em = JPAUtil.getEntityManager();
+		
+		ClienteDao clienteDao = new ClienteDao(em);
+		
+		em.getTransaction().begin();
+		List<Cliente> clientes = clienteDao.buscaTodosOsClientes();
+		em.getTransaction().commit();
+		em.close();
+
+		return clientes;
+	}
 
 	@GET
 	@Path("/{telefone}")
@@ -58,7 +74,8 @@ public class ClienteController {
 
 		Bebida bebida1 = bebidaDao.buscaPorId(1L);
 		Bebida bebida2 = bebidaDao.buscaPorId(2L);
-		cliente.setBebidas(Arrays.asList(bebida1, bebida2));
+		Bebida bebida3 = bebidaDao.buscaPorId(3L);
+		cliente.setBebidas(Arrays.asList(bebida1, bebida2, bebida3));
 
 		em.getTransaction().begin();
 		clienteDao.cadastra(cliente);
