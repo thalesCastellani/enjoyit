@@ -17,16 +17,21 @@ public class ClienteService {
 		clienteDao = new ClienteDao(em);
 	}
 	
-	public void cadastra(Cliente cliente) throws TelefoneInvalidoException {
-		valida(cliente);
-		clienteDao.cadastra(cliente);
+	public Cliente buscaPorTelefone(String telefone) throws TelefoneInvalidoException {
+		valida(telefone);
+		return clienteDao.buscaPorTelefone(telefone);
 	}
 	
-	private void valida(Cliente cliente) throws TelefoneInvalidoException {
-		Pattern pattern = Pattern.compile("");
-		Matcher matcher = pattern.matcher("11945452200");
+	private void valida(String telefone) throws TelefoneInvalidoException {
+		String regex = "^((\\(\\d{2}\\))|\\d{2})[- .]?\\d{5}[- .]?\\d{4}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(telefone);
 		
-		// continuar implementacao
+		boolean encontrou = matcher.matches();
+		
+		if (!encontrou) {
+			throw new TelefoneInvalidoException();
+		}
 		
 	}
 

@@ -19,8 +19,10 @@ import javax.ws.rs.core.UriInfo;
 
 import br.com.enjoyit.dao.BebidaDao;
 import br.com.enjoyit.dao.ClienteDao;
+import br.com.enjoyit.exception.TelefoneInvalidoException;
 import br.com.enjoyit.model.Bebida;
 import br.com.enjoyit.model.Cliente;
+import br.com.enjoyit.service.ClienteService;
 import br.com.enjoyit.util.JPAUtil;
 
 @Path("/cliente")
@@ -29,12 +31,13 @@ public class ClienteController {
 	@GET
 	@Path("/{telefone}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Cliente buscaInfosClientePeloTelefone(@PathParam("telefone") String telefone) {
+	public Cliente buscaInfosClientePeloTelefone(@PathParam("telefone") String telefone) throws TelefoneInvalidoException {
 		EntityManager em = JPAUtil.getEntityManager();
-		ClienteDao clienteDao = new ClienteDao(em);
-
+		
+		ClienteService clienteService = new ClienteService(em);
+		
 		em.getTransaction().begin();
-		Cliente cliente = clienteDao.buscaPorTelefone(telefone);
+		Cliente cliente = clienteService.buscaPorTelefone(telefone.replaceAll("[^0-9]", ""));
 		em.getTransaction().commit();
 		em.close();
 

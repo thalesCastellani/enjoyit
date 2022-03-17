@@ -8,7 +8,7 @@ public class TelefoneInvalidoException extends Exception {
 	private static final long serialVersionUID = -7472745451500858896L;
 	
 	public TelefoneInvalidoException() {
-		super("Telefone inválido!");
+		super("Telefone inválido! Digite novamente");
 	}
 	
 	
