@@ -41,9 +41,9 @@ public class ClienteController {
 		em.getTransaction().commit();
 		em.close();
 
-		System.out.println(cliente.getNome());
 		return cliente;
 	}
+	
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
