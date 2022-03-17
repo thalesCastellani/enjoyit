@@ -43,7 +43,6 @@ public class ClienteController {
 
 		return cliente;
 	}
-	
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
