@@ -10,14 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "TB_EI_CLIENTE")
+@Table(name = "TB_CLIENTE")
 @SequenceGenerator(name = "cliente", sequenceName = "SQ_TB_CLIENTE", allocationSize = 1)
 public class Cliente {
 
@@ -44,7 +44,7 @@ public class Cliente {
 	@JsonProperty("ticket_medio")
 	private BigDecimal ticketMedio;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Bebida> bebidas;
 
 	public Long getId() {

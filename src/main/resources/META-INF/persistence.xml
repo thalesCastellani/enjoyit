@@ -19,7 +19,7 @@
 			create -> utilizaremos o create pois ele funciona em todos os casos	
 			validate -> validar se as tabelas estão de acordo com as classes mapeadas
 			-->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 
 			<!-- Dialeto, criar as queries nativas no banco oracle -->
 			<property name="hibernate.dialect"
