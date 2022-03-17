@@ -15,5 +15,9 @@ public class BebidaDao {
 	public void cadastra(Bebida bebida) {
 		this.em.persist(bebida);
 	}
+	
+	public Bebida buscaPorId(Long id) {
+		return this.em.find(Bebida.class, id);
+	}
 
 }

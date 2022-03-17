@@ -1,6 +1,5 @@
 package br.com.enjoyit.model;
 
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,9 +25,6 @@ public class Bebida {
 
 	@Column(name = "es_bebida")
 	private String estilo;
-
-	@ManyToMany(mappedBy = "bebidasFavoritas")
-	private List<Cliente> clientes;
 
 	public Long getId() {
 		return id;
@@ -55,22 +50,14 @@ public class Bebida {
 		this.estilo = estilo;
 	}
 
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
-
 	@Override
 	public String toString() {
-		return "Bebida [id=" + id + ", nome=" + nome + ", estilo=" + estilo + ", clientes=" + clientes + "]";
+		return "Bebida [id=" + id + ", nome=" + nome + ", estilo=" + estilo + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(clientes, estilo, id, nome);
+		return Objects.hash(estilo, id, nome);
 	}
 
 	@Override
@@ -82,8 +69,7 @@ public class Bebida {
 		if (getClass() != obj.getClass())
 			return false;
 		Bebida other = (Bebida) obj;
-		return Objects.equals(clientes, other.clientes) && Objects.equals(estilo, other.estilo)
-				&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
+		return Objects.equals(estilo, other.estilo) && Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
 	}
 
 }

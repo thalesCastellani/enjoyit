@@ -15,5 +15,12 @@ public class ClienteDao {
 	public void cadastra(Cliente cliente) {
 		this.em.persist(cliente);
 	}
+	
+	public Cliente buscaPorTelefone(String telefone) {
+		String jpql = "SELECT c FROM Cliente c WHERE c.telefone = :telefone";
+		return this.em.createQuery(jpql, Cliente.class)
+				.setParameter("telefone", telefone)
+				.getSingleResult();
+	}
 
 }

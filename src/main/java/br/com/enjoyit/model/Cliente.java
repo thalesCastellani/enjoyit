@@ -1,24 +1,23 @@
 package br.com.enjoyit.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
-@Table(name = "TB_CLIENTE")
+@Table(name = "TB_EI_CLIENTE")
 @SequenceGenerator(name = "cliente", sequenceName = "SQ_TB_CLIENTE", allocationSize = 1)
 public class Cliente {
 
@@ -34,18 +33,19 @@ public class Cliente {
 	private String nome;
 
 	@Column(name = "dt_ultima_visita")
-	private LocalDateTime dataUltimaVisita = LocalDateTime.now();
+	@JsonProperty("data_ultima_visita")
+	private String dataUltimaVisita;
 
 	@Column(name = "fq_visitas")
+	@JsonProperty("frequencia_dias_no_mes")
 	private Integer frequencia;
 
 	@Column(name = "vl_ticket_medio")
+	@JsonProperty("ticket_medio")
 	private BigDecimal ticketMedio;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@Column(name = "nm_bebida_favorita")
-	@JoinTable(joinColumns = @JoinColumn(name = "id_cliente"), inverseJoinColumns = @JoinColumn(name = "id_bebida"), name = "bebida_favorita_cliente")
-	private List<Bebida> bebidasFavoritas;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Bebida> bebidas;
 
 	public Long getId() {
 		return id;
@@ -71,11 +71,11 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public LocalDateTime getDataUltimaVisita() {
+	public String getDataUltimaVisita() {
 		return dataUltimaVisita;
 	}
 
-	public void setDataUltimaVisita(LocalDateTime dataUltimaVisita) {
+	public void setDataUltimaVisita(String dataUltimaVisita) {
 		this.dataUltimaVisita = dataUltimaVisita;
 	}
 
@@ -95,24 +95,24 @@ public class Cliente {
 		this.ticketMedio = ticketMedio;
 	}
 
-	public List<Bebida> getBebidasFavoritas() {
-		return bebidasFavoritas;
+	public List<Bebida> getBebidas() {
+		return bebidas;
 	}
 
-	public void setBebidasFavoritas(List<Bebida> bebidasFavoritas) {
-		this.bebidasFavoritas = bebidasFavoritas;
+	public void setBebidas(List<Bebida> bebidas) {
+		this.bebidas = bebidas;
 	}
 
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", telefone=" + telefone + ", nome=" + nome + ", dataUltimaVisita="
-				+ dataUltimaVisita + ", frequencia=" + frequencia + ", ticketMedio=" + ticketMedio
-				+ ", bebidasFavoritas=" + bebidasFavoritas + "]";
+				+ dataUltimaVisita + ", frequencia=" + frequencia + ", ticketMedio=" + ticketMedio + ", bebidas="
+				+ bebidas + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bebidasFavoritas, dataUltimaVisita, frequencia, id, nome, telefone, ticketMedio);
+		return Objects.hash(bebidas, dataUltimaVisita, frequencia, id, nome, telefone, ticketMedio);
 	}
 
 	@Override
@@ -124,8 +124,7 @@ public class Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(bebidasFavoritas, other.bebidasFavoritas)
-				&& Objects.equals(dataUltimaVisita, other.dataUltimaVisita)
+		return Objects.equals(bebidas, other.bebidas) && Objects.equals(dataUltimaVisita, other.dataUltimaVisita)
 				&& Objects.equals(frequencia, other.frequencia) && Objects.equals(id, other.id)
 				&& Objects.equals(nome, other.nome) && Objects.equals(telefone, other.telefone)
 				&& Objects.equals(ticketMedio, other.ticketMedio);
