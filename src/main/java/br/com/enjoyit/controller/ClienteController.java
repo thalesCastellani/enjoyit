@@ -28,14 +28,14 @@ import br.com.enjoyit.util.JPAUtil;
 
 @Path("/cliente")
 public class ClienteController {
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Cliente> buscaTodosOsClientes() {
 		EntityManager em = JPAUtil.getEntityManager();
-		
+
 		ClienteDao clienteDao = new ClienteDao(em);
-		
+
 		em.getTransaction().begin();
 		List<Cliente> clientes = clienteDao.buscaTodosOsClientes();
 		em.getTransaction().commit();
@@ -47,11 +47,12 @@ public class ClienteController {
 	@GET
 	@Path("/{telefone}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Cliente buscaInfosClientePeloTelefone(@PathParam("telefone") String telefone) throws TelefoneInvalidoException {
+	public Cliente buscaInfosClientePeloTelefone(@PathParam("telefone") String telefone)
+			throws TelefoneInvalidoException {
 		EntityManager em = JPAUtil.getEntityManager();
-		
+
 		ClienteService clienteService = new ClienteService(em);
-		
+
 		em.getTransaction().begin();
 		Cliente cliente = clienteService.buscaPorTelefone(telefone.replaceAll("[^0-9]", ""));
 		em.getTransaction().commit();
